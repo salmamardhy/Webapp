@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Employee Records{% endblock title %}
+
+{% block content %}
+<div class="col-md-8 offset-md-2 mt-4">
+    <h4 style="margin-top: 30px; margin-bottom: 20px; font-size: 2rem;">REGISTRATION</h4>
+    <h3 style="margin-top: 10px; margin-bottom: 20px; font-size: 17pt;">Enter Details</h3>  
+    
+    <!-- Success Message Section
+    {% if success_message %}
+        <div class="alert alert-success">
+            <p>{{ success_message }}</p>
+        </div>
+    {% endif %} -->
+  
+    <form method="POST" class="post-form" action="/regis">  
+        {% csrf_token %}  
+
+        <div class="mb-3">
+            <label for="ktpname" class="form-label">KTP Name</label>
+            <input type="text" class="form-control" name="ktpname" id="id_ktpname" required>
+            {% if form.ktpname.errors %}
+                <div class="alert alert-danger">{{ form.ktpname.errors }}</div>
+            {% endif %}
+        </div>         
+
+        <div class="mb-3"> 
+            <label for="password" class="form-label">Password</label>  
+            {{ form.password }}   
+        </div>
+
+        <div class="mb-3"> 
+            <label for="firstname" class="form-label">First Name</label>  
+            {{ form.firstname }}   
+            {% if form.firstname.errors %}
+                <div class="alert alert-danger">{{ form.firstname.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3"> 
+            <label for="middlename" class="form-label">Middle Name</label>  
+            {{ form.middlename }}   
+            {% if form.middlename.errors %}
+                <div class="alert alert-danger">{{ form.middlename.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3"> 
+            <label for="lastname" class="form-label">Last Name</label>  
+            {{ form.lastname }}   
+            {% if form.lastname.errors %}
+                <div class="alert alert-danger">{{ form.lastname.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3"> 
+            <label for="id_memberstatus">Member Status:</label>  
+            {{ form.memberstatus }}  <!-- This will render the select field -->
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success btn-lg">Sign Up</button>  
+        </div>
+
+        <!-- Adding space below the submit button -->
+        <div style="margin-top: 20px;"></div>  <!-- Adjust the value as needed -->
+
+        <!-- Adding Login button-->
+        <div class="d-grid mt-3">  
+            <a href="/" class="btn btn-primary btn-lg">Login</a>  
+        </div>
+        
+        <!-- Adding space below the submit button -->
+        <div style="margin-top: 40px;"></div>  <!-- Adjust the value as needed -->
+
+    </form>  
+</div>
+{% endblock content %}

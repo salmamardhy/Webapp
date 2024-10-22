@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Member Table{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div style="margin-top: 50px;"> <!-- Atur jarak sesuai kebutuhan -->
+        <h1>Edit Profile</h1>
+    </div>
+    <hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" style="margin-bottom: 20px;"> <!-- Added margin here -->
+          <!-- <h6>Upload a different photo...</h6> -->
+          
+          <input type="file" class="form-control">
+        </div>
+      </div>
+      
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <!-- <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <i class="fa fa-coffee"></i>
+          This is an <strong>.alert</strong>. Use this to show important messages to the user.
+        </div> -->
+        <div class="row" style="margin-bottom: 10px;">  <!-- Added row for layout -->
+            <div class="col-md-6"> <!-- Column for Member Info -->
+                <h3>Member Info</h3>
+            </div>
+            <div class="col-md-6 text-right"> <!-- Column for Delete button -->
+                <a href="/delete/{{ employee.memberid }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+            </div>
+        </div>
+        
+        <form class="form-horizontal" role="form" method="POST" action="{% url 'update' employee.memberid %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Member ID</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" name="memberid" id="id_memberid" required maxlength="15" value="{{ employee.memberid }}" readonly/>    
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">KTP Name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" name="ktpname" id="id_ktpname" required maxlength="100" value="{{ employee.ktpname }}" />
+                {% if form.ktpname.errors %}
+                    <div class="alert alert-danger">{{ form.ktpname.errors }}</div>
+                {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Password</label>
+            <div class="col-lg-8">
+                <input type="password" class="form-control" name="password" id="id_password" required maxlength="30" value="{{ employee.password }}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First Name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" name="firstname" id="id_firstname" required maxlength="50" value="{{ employee.firstname }}" />
+                {% if form.firstname.errors %}
+                    <div class="alert alert-danger">{{ form.firstname.errors }}</div>
+                {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Middle Name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" name="middlename" id="id_middlename" maxlength="20" value="{{ employee.middlename }}" />
+                {% if form.middlename.errors %}
+                    <div class="alert alert-danger">{{ form.middlename.errors }}</div>
+                {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last Name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" name="lastname" id="id_lastname" required maxlength="50" value="{{ employee.lastname }}" />
+                {% if form.lastname.errors %}
+                    <div class="alert alert-danger">{{ form.lastname.errors }}</div>
+                {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Current Member Status</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" value="{% if employee.memberstatus == 1 %}Yes{% else %}No{% endif %}" readonly/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Change Member Status</label>
+            <div class="col-lg-8">
+                {{ form.memberstatus }}
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <a href="{% url 'login' %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div> 
+  </div> 
+  </div>
+</div>
+<hr>
+{% endblock content %}

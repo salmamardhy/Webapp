@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100"> <!-- Flexbox for centering -->
+    <div class="col-md-7 col-lg-4">
+        <h3 class="text-center mb-4">LOGIN</h3>
+        
+        <!-- Display error or success messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="ktpname" class="form-label">KTP Name</label>
+                <input type="text" class="form-control" id="ktpname" name="ktpname" placeholder="Enter KTP Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <p class="text-center mt-3">Don't have an account? <a href="{% url 'regis' %}">Create one here</a></p>
+        </form>
+    </div>
+</div>
+{% endblock %}
